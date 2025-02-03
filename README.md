@@ -60,7 +60,7 @@ A web-based fitness tracking application built using **Angular 14+** and **Tailw
 ## 🌐 Live Demo
 
 Deployed at: ** https://hyderraza18.github.io/health_tracker/login.html**
-               https://hyderraza18.github.io/health_tracker/
+           
 
 ## 📸 Screenshots
 Login page 
