@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome - Health Challenge Tracker</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #0F172A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Top and Bottom Scrolling Sliders */
+    .slider-top,
+    .slider-bottom {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 120px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .slider-top { top: 0; }
+    .slider-bottom { bottom: 0; }
+    .slide-track {
+      display: flex;
+      width: calc(180px * 12); /* 12 images, each ~170px + 10px margin */
+      animation: scroll 15s linear infinite;
+    }
+    .slide-track img {
+      width: 170px;
+      height: 100px;
+      object-fit: contain;
+      margin-right: 10px;
+    }
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Login Container */
+    .login-container {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 3rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
+      text-align: center;
+      width: 350px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeIn 1s forwards 0.5s;
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .login-container h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #818CF8, #F472B6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: bold;
+      animation: slideUp 1s ease-out forwards;
+    }
+    @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .login-container input {
+      width: 100%;
+      padding: 0.9rem;
+      margin: 0.8rem 0;
+      border: 1px solid #818CF8;
+      border-radius: 1rem;
+      background: #1E293B;
+      color: #F8FAFC;
+      font-size: 1rem;
+      transition: all 0.3s ease-in-out;
+      opacity: 0;
+      animation: fadeInInputs 1s forwards 1.2s;
+    }
+    @keyframes fadeInInputs { from { opacity: 0; } to { opacity: 1; } }
+    .login-container input:focus {
+      outline: none;
+      border-color: #F472B6;
+      background-color: #1E2A39;
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 1.5rem;
+      border: none;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, #818CF8, #F472B6);
+      color: #F8FAFC;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s ease-in-out;
+      opacity: 0;
+      animation: fadeInButton 1s forwards 1.4s;
+    }
+    @keyframes fadeInButton { from { opacity: 0; } to { opacity: 1; } }
+    .login-container button:hover {
+      background: linear-gradient(135deg, #F472B6, #818CF8);
+      transform: scale(1.05);
+    }
+    .login-container button:active { transform: scale(1); }
+    .forgot-password {
+      color: #F8FAFC;
+      font-size: 0.9rem;
+      text-decoration: none;
+      margin-top: 10px;
+      display: block;
+      transition: color 0.2s ease-in-out;
+      opacity: 0;
+      animation: fadeInForgot 1s forwards 1.6s;
+    }
+    @keyframes fadeInForgot { from { opacity: 0; } to { opacity: 1; } }
+    .forgot-password:hover { color: #F472B6; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="LoginController">
+  
+  <!-- Top Scrolling Slider -->
+  <div class="slider-top">
+    <div class="slide-track">
+      <img src="https://cdn-icons-png.flaticon.com/512/2934/2934086.png" alt="Running">
+      <img src="https://cdn-icons-png.flaticon.com/512/3063/3063176.png" alt="Cycling">
+      <img src="https://cdn-icons-png.flaticon.com/512/1355/1355277.png" alt="Yoga">
+      <img src="https://cdn-icons-png.flaticon.com/512/4691/4691770.png" alt="Weightlifting">
+      <img src="https://cdn-icons-png.flaticon.com/512/4837/4837855.png" alt="Jump Rope">
+      <img src="https://cdn-icons-png.flaticon.com/512/2933/2933077.png" alt="Swimming">
+      <img src="https://cdn-icons-png.flaticon.com/512/2934/2934086.png" alt="Running">
+      <img src="https://cdn-icons-png.flaticon.com/512/3063/3063176.png" alt="Cycling">
+      <img src="https://cdn-icons-png.flaticon.com/512/1355/1355277.png" alt="Yoga">
+      <img src="https://cdn-icons-png.flaticon.com/512/4691/4691770.png" alt="Weightlifting">
+      <img src="https://cdn-icons-png.flaticon.com/512/4837/4837855.png" alt="Jump Rope">
+      <img src="https://cdn-icons-png.flaticon.com/512/2933/2933077.png" alt="Swimming">
+      <img src="https://cdn-icons-png.flaticon.com/512/2934/2934086.png" alt="Running">
+      <img src="https://cdn-icons-png.flaticon.com/512/3063/3063176.png" alt="Cycling">
+      <img src="https://cdn-icons-png.flaticon.com/512/1355/1355277.png" alt="Yoga">
+      <img src="https://cdn-icons-png.flaticon.com/512/4691/4691770.png" alt="Weightlifting">
+      <img src="https://cdn-icons-png.flaticon.com/512/4837/4837855.png" alt="Jump Rope">
+      <img src="https://cdn-icons-png.flaticon.com/512/2933/2933077.png" alt="Swimming">
+    </div>
+  </div>
+
+  <!-- Centered Login Form -->
+  <div class="login-container">
+    <h1>Welcome!</h1>
+    <form ng-submit="login()">
+      <input type="text" ng-model="user.username" placeholder="Username" required>
+      <input type="password" ng-model="user.password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <a href="#" class="forgot-password">Forgot Password?</a>
+  </div>
+
+  <!-- Bottom Scrolling Slider -->
+  <div class="slider-bottom">
+    <div class="slide-track">
+      <img src="https://cdn-icons-png.flaticon.com/512/2934/2934086.png" alt="Running">
+      <img src="https://cdn-icons-png.flaticon.com/512/3063/3063176.png" alt="Cycling">
+      <img src="https://cdn-icons-png.flaticon.com/512/1355/1355277.png" alt="Yoga">
+      <img src="https://cdn-icons-png.flaticon.com/512/4691/4691770.png" alt="Weightlifting">
+      <img src="https://cdn-icons-png.flaticon.com/512/4837/4837855.png" alt="Jump Rope">
+      <img src="https://cdn-icons-png.flaticon.com/512/2933/2933077.png" alt="Swimming">
+      <img src="https://cdn-icons-png.flaticon.com/512/2934/2934086.png" alt="Running">
+      <img src="https://cdn-icons-png.flaticon.com/512/3063/3063176.png" alt="Cycling">
+      <img src="https://cdn-icons-png.flaticon.com/512/1355/1355277.png" alt="Yoga">
+      <img src="https://cdn-icons-png.flaticon.com/512/4691/4691770.png" alt="Weightlifting">
+      <img src="https://cdn-icons-png.flaticon.com/512/4837/4837855.png" alt="Jump Rope">
+      <img src="https://cdn-icons-png.flaticon.com/512/2933/2933077.png" alt="Swimming">
+    </div>
+  </div>
+
+  <script>
+    angular.module('loginApp', [])
+      .controller('LoginController', function($scope, $window) {
+        $scope.user = {};
+        $scope.login = function() {
+          if ($scope.user.username && $scope.user.password) {
+            localStorage.setItem('username', $scope.user.username);
+            $window.location.href = "tracker.html";
+          }
+        };
+      });
+  </script>
+</body>
+</html>
